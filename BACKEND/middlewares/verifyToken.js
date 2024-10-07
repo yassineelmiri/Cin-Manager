@@ -21,4 +21,28 @@ function VerifyToken(req, res, next) {
   }
 }
 
-module.exports = { VerifyToken };
+//Verify Token & Admin
+function verifyTokenAndAdmin(req, res, next) {
+  VerifyToken(req, res, () => {
+    if (req.user.isAdmin) {
+      next();
+    } else {
+      return res.status(403).json({ message: "not allowed, only admin" });
+    }
+  });
+}
+
+//Verify Token & Only User Himself
+function verifyTokenAndOnlyUser(req, res, next) {
+  VerifyToken(req, res, () => {
+    if (req.user.id === req.params.id) {
+      next();
+    } else {
+      return res
+        .status(403)
+        .json({ message: "not allowed, only User Himself" });
+    }
+  });
+}
+
+module.exports = { VerifyToken, verifyTokenAndAdmin, verifyTokenAndOnlyUser };
