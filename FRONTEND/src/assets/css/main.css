@@ -5524,3 +5524,14 @@ body::-webkit-scrollbar-thumb {
 .plyr--video .plyr__control svg {
   filter: none;
 }
+.search-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #3d63fc50;
+  width: 100%;
+  padding: 10px;
+  color: #ffffff;
+  margin-bottom: 20px; 
+  border-radius: 4px;
+}

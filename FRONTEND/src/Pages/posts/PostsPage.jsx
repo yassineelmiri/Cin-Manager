@@ -1,8 +1,15 @@
+import React, { useState } from "react";
 import Header from "../../home/header";
 import PostsList from "./PostsList";
 import Footer from "../../home/footer";
 
 const PostsPage = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
   return (
     <>
       <Header />
@@ -10,8 +17,9 @@ const PostsPage = () => {
         <div className="container">
           <div className="row">
             <div className="col-12">
+
               <div className="row row--grid">
-                <PostsList />
+                <PostsList searchTerm={searchTerm} /> {/* Passez le terme de recherche ici */}
               </div>
             </div>
           </div>

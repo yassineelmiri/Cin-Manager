@@ -1,21 +1,28 @@
-import React from 'react';
-import Header from '../../home/header';
-import Footer from '../../home/footer';
-import '../../assets/css/main.css';
-import '../../assets/css/bootstrap-grid.min.css';
-import '../../assets/css/bootstrap-reboot.min.css';
-import '../../assets/css/magnific-popup.css';
-import '../../assets/css/plyr.css';
-import '../../assets/css/select2.min.css';
-import '../../assets/css/slider-radio.css';
-import '../../assets/css/owl.carousel.min.css';
+import React, { useEffect } from "react";
+import Header from "../../home/header";
+import Footer from "../../home/footer";
+import "../../assets/css/main.css";
+import "../../assets/css/bootstrap-grid.min.css";
+import "../../assets/css/bootstrap-reboot.min.css";
+import "../../assets/css/magnific-popup.css";
+import "../../assets/css/plyr.css";
+import "../../assets/css/select2.min.css";
+import "../../assets/css/slider-radio.css";
+import "../../assets/css/owl.carousel.min.css";
+import PostsList from "../posts/PostsList";
 
-import PostsList from '../posts/PostsList';
+//fetch
+import { useDispatch } from "react-redux";
+import { fetchPost } from "../../redux/apiCalls/postApiCall";
 export default function Movies() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchPost(1));
+  }, []);
 
   return (
     <>
-     <Header />
+      <Header />
       <div className="home home--static">
         <div className="home__carousel owl-carousel" id="flixtv-hero">
           <div className="home__card">

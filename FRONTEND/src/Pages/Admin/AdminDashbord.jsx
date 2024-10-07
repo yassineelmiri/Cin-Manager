@@ -6,7 +6,6 @@ const AdminDashbord = () => {
     return (
         <div>
             <Sidebar/>
-            {/* Main Content */}
             <main className="main">
                 <div className="container-fluid">
                     <div className="row">
