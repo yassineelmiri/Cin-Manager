@@ -14,31 +14,35 @@ const {
 * @access private (only logged in user)
 --------------------------------------------------*/
 module.exports.createPostCtrl = asyncHandler(async (req, res) => {
-  // Validation de l'image
-  if (!req.file) {
-    return res.status(400).json({ message: "No image provided" });
+  try {
+    // Vérifiez si le fichier est bien reçu
+    if (!req.file) {
+      return res.status(400).json({ message: "Aucune image fournie" });
+    }
+
+    // Validation des données
+    const { title, description, category } = req.body;
+    if (!title || !description || !category) {
+      return res.status(400).json({ message: "Les champs requis sont manquants" });
+    }
+
+    // Création du post
+    const post = await Post.create({
+      title,
+      description,
+      category,
+      user: req.user.id,
+      image: {
+        url: `./images/${req.file.filename}`,
+        publicId: null,
+      },
+    });
+
+    res.status(201).json(post);
+  } catch (error) {
+    console.error(error); // Affichez l'erreur complète dans la console
+    res.status(500).json({ message: "Erreur lors de la création du post" });
   }
-
-  // Validation des données
-  const { error } = validateCreatePost(req.body);
-  if (error) {
-    return res.status(400).json({ message: error.details[0].message });
-  }
-
-  // Création du post
-  const post = await Post.create({
-    title: req.body.title,
-    description: req.body.description,
-    category: req.body.category,
-    user: req.user.id,
-    image: {
-      url: `/uploads/${req.file.filename}`,
-      publicId: null,
-    },
-  });
-
-  // Réponse au client
-  res.status(201).json(post);
 });
 
 /**-----------------------------------------------
@@ -49,7 +53,7 @@ module.exports.createPostCtrl = asyncHandler(async (req, res) => {
 --------------------------------------------------*/
 
 module.exports.getAllPostsCtrl = asyncHandler(async (req, res) => {
-  const POST_PER_PAGE = 3;
+  const POST_PER_PAGE = 4;
   const { pageNumber, category } = req.query;
   let posts;
   if (pageNumber) {
