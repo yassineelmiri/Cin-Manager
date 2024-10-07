@@ -1,12 +1,17 @@
-import React, { useState } from "react"; // Correction de l'import de useState
-import { Link } from "react-router-dom"; // Utilisation de Link pour la navigation
+import { React, useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom"; // Ajout de useNavigate
 import "../../assets/css/main.css";
 import { toast } from "react-toastify";
-
+import { useDispatch, useSelector } from "react-redux";
+import swal from "sweetalert";
 import logo from "../../assets/img/series/logo.png";
 import bgImage from "../../assets/img/bg.jpg";
+import { registerUser } from "../../redux/apiCalls/authApiCall";
 
 export default function SignIn() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate(); // Initialisation de useNavigate pour la redirection
+  const { registerMessage } = useSelector((state) => state.auth);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,8 +27,23 @@ export default function SignIn() {
     if (password.trim() === "") {
       return toast.error("Password is required");
     }
-    console.log({ username, email, password });
+    dispatch(registerUser({ username, email, password }));
   };
+
+  // Utilisation de useEffect pour surveiller les changements dans registerMessage et rediriger si l'inscription est réussie
+  useEffect(() => {
+    if (registerMessage) {
+      swal({
+        title: registerMessage,
+        icon: "success",
+      }).then((isOk) => {
+        if (isOk) {
+          // Redirection vers la page de connexion
+          navigate("/signin"); 
+        }
+      });
+    }
+  }, [registerMessage, navigate]); // Ajout de navigate dans les dépendances
 
   return (
     <div
@@ -65,19 +85,10 @@ export default function SignIn() {
                     onChange={(e) => setPassword(e.target.value)} // Mise à jour du password
                   />
                 </div>
-                <div className="sign__group sign__group--checkbox">
-                  <input
-                    id="remember"
-                    name="remember"
-                    type="checkbox"
-                    defaultChecked
-                  />
-                  <label htmlFor="remember">Remember Me</label>
-                </div>
-                <button type="submit" className="sign__btn" >
+
+                <button type="submit" className="sign__btn">
                   Sign Up
-                </button>{" "}
-                {/* Correction du type pour soumettre le formulaire */}
+                </button>
                 <span className="sign__delimiter">or</span>
                 <span className="sign__text">
                   Don't have an account? <Link to="/signin">Sign in!</Link>
