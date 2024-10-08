@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Header from "../../home/header";
 import Footer from "../../home/footer";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPostById } from "../../redux/apiCalls/postApiCall";
 import logo from "../../assets/img/series/bg.jpg";
@@ -39,22 +39,28 @@ const PostDetail = () => {
     <>
       <Header />
       <section className="section section--head section--head-fixed section--gradient section--details-bg">
-        <div
-          className="section__bg"
-          style={{ backgroundImage: `url(${logo})` }}
-        ></div>
+      <div
+  className="section__bg"
+  style={{
+    backgroundImage: `url(${post.image.url})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover', 
+    backgroundPosition: 'center',
+  }}
+></div>
+
         <div className="container">
           <div className="article">
             <div className="row">
               <div className="col-12 col-xl-8">
-                <a
-                  href={post.trailerUrl ? post.trailerUrl : "#"}
+                <Link
+                  to={post.trailerUrl ? post.trailerUrl : "#"}
                   className="article__trailer open-video"
                 >
                   <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
                   </svg>
                   Trailer
-                </a>
+                </Link>
 
                 <div className="article__content">
                   <h1>{post.title}</h1>

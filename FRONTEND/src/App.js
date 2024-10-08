@@ -30,15 +30,17 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/posts" element={<PostsPage />} />
-        <Route path="/posts/create-post" element={<CreatePost />} />
+        <Route
+          path="/posts/create-post"
+          element={user?.isAdmin ? <CreatePost /> : <Navigate to="/" />}
+        />
         <Route path="/posts/details/:id" element={<PostDetail />} />
 
         <Route
           path="/admin"
-          element={!user?.isAdmin ? <AdminDashbord /> : <Navigate to="/" />}
+          element={user?.isAdmin ? <AdminDashbord /> : <Navigate to="/" />}
         />
-        <Route path="/reserve/:id" component={ReservationPage} /> {/* Route pour la réservation */}
-
+        <Route path="/reserve/:id" component={ReservationPage} />
 
         <Route path="*" element={<Error />} />
       </Routes>

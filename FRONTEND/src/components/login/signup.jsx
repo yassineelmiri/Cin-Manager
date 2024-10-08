@@ -94,7 +94,7 @@ export default function SignIn() {
                   Don't have an account? <Link to="/signin">Sign in!</Link>
                 </span>
                 <span className="sign__text">
-                  <Link to="/forgot">Forgot password?</Link>
+                  <Link to="/forgot-password">Forgot password?</Link>
                 </span>
               </form>
             </div>

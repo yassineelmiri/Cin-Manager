@@ -34,17 +34,14 @@ export default function SignIn() {
       return toast.error("Password is required");
     }
 
-    // Appel à la fonction de connexion
     dispatch(loginUser({ email, password }));
   };
 
-  // Afficher un pop-up si l'utilisateur est connecté
   useEffect(() => {
     if (user) {
-      toast.success("Successfully logged in!"); // Afficher le pop-up de succès
+      toast.success("Successfully logged in!"); 
     }
-  }, [user]); // Dépend de l'utilisateur
-
+  }, [user]); 
   return (
     <div
       className="sign section--full-bg"
@@ -92,7 +89,7 @@ export default function SignIn() {
                   Don't have an account? <Link to="/signup">Sign up!</Link>
                 </span>
                 <span className="sign__text">
-                  <Link to="/forgot">Forgot password?</Link>
+                  <Link to="/forgot-password">Forgot password?</Link>
                 </span>
               </form>
             </div>

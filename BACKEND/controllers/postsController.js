@@ -33,7 +33,7 @@ module.exports.createPostCtrl = asyncHandler(async (req, res) => {
       category,
       user: req.user.id,
       image: {
-        url: `./images/${req.file.filename}`,
+        url: `http://localhost:5000/images/${req.file.filename}`,
         publicId: null,
       },
     });

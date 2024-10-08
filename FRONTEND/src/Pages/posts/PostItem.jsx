@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom";
-import test from '../../assets/img/series/6.jpg';
 const PostItem = ({ imgSrc, rating, title, list, id }) => {
   return (
     <div className="card">
       <Link to={`/posts/details/${id}`} className="card__cover">
-        <img src={test} alt={title} /> {/* Utilisez imgSrc directement ici */}
+        <img src={imgSrc} alt={title} /> 
       </Link>
       <button className="card__add" type="button">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

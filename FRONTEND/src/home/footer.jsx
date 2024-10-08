@@ -1,4 +1,6 @@
 import React from "react";
+import logo from "../assets/img/series/logo.png";
+import { Link } from "react-router-dom";
 
 export default function footer() {
   return (
@@ -7,14 +9,14 @@ export default function footer() {
         <div className="row">
           <div className="col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 order-4 order-md-1 order-lg-4 order-xl-1">
             <div className="footer__flixtv">
-              <img src="../assets/img/logo.png" alt="Logo" />
+              <img src={logo} alt="Logo" />
             </div>
             <p className="footer__tagline">
               Movies & TV Shows, Online cinema,
               <br /> Movie.
             </p>
             <div className="footer__social">
-              <a href="#" target="_blank" rel="noopener noreferrer">
+              <Link to="/" target="_blank" rel="noopener noreferrer">
                 <svg
                   width="30"
                   height="30"
@@ -31,8 +33,8 @@ export default function footer() {
                     fill="white"
                   />
                 </svg>
-              </a>
-              <a href="#" target="_blank" rel="noopener noreferrer">
+              </Link>
+              <Link to="/" target="_blank" rel="noopener noreferrer">
                 <svg
                   width="30"
                   height="30"
@@ -49,7 +51,7 @@ export default function footer() {
                     fill="white"
                   />
                 </svg>
-              </a>
+              </Link>
               <a
                 href="https://www.instagram.com/volkov_des1gn/"
                 target="_blank"

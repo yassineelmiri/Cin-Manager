@@ -18,7 +18,7 @@ export default function Movies() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchPost(1));
-  }, []);
+  },[]);
 
   return (
     <>
@@ -55,7 +55,7 @@ export default function Movies() {
         <div className="container">
           <div className="row">
             <div className="col-12">
-              <PostsList/>
+              <PostsList />
             </div>
           </div>
         </div>

@@ -12,14 +12,13 @@ const PostsList = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    dispatch(fetchPost(1)); // Récupérer les posts pour la première page
+    dispatch(fetchPost(1));
   }, [dispatch]);
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  // Filtrer les posts en fonction du terme de recherche
   const filteredPosts = posts.filter(post => 
     post.title && post.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
