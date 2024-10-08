@@ -1,6 +1,7 @@
 import React from "react";
 import logo from "../../assets/img/series/logo.png";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   // Récupération des informations utilisateur depuis le state
@@ -30,10 +31,6 @@ const Sidebar = () => {
         </a>
 
         <div className="sidebar__user">
-          <div className="sidebar__user-img">
-            {/* Utilisation de user.profilePhoto.url pour l'image de profil */}
-            <img src={user?.profilePhoto?.url || "/img/user.svg"} alt="user" />
-          </div>
           <div className="sidebar__user-title">
             {/* Vérification de isAdmin pour afficher Admin ou User */}
             <span>{user?.isAdmin ? "Admin" : "User"}</span>
@@ -44,17 +41,17 @@ const Sidebar = () => {
 
         <ul className="sidebar__nav">
           <li className="sidebar__nav-item">
-            <a
-              href="/dashboard"
+            <Link
+              to="/admin"
               className="sidebar__nav-link sidebar__nav-link--active"
             >
-              Dashboard
-            </a>
+              Statistique
+            </Link>
           </li>
           <li className="sidebar__nav-item">
-            <a href="/catalog" className="sidebar__nav-link">
-              Catalog
-            </a>
+            <Link to="/posts/create-post" className="sidebar__nav-link">
+              Ajout Film
+            </Link>
           </li>
         </ul>
       </div>
