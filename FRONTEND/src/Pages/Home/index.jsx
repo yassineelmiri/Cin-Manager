@@ -19,7 +19,7 @@ export default function Movies() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchPost(1));
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

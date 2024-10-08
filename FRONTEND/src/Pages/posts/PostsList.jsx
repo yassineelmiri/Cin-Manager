@@ -6,8 +6,6 @@ import PostItem from './PostItem';
 const PostsList = () => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.post.posts);
-  
-  // État local pour le terme de recherche
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {

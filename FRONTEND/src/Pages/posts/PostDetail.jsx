@@ -4,8 +4,8 @@ import Footer from "../../home/footer";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPostById } from "../../redux/apiCalls/postApiCall";
-import { fetchSeancesByFilmId } from "../../redux/apiCalls/seanceApiCall"; // Import API call pour récupérer les séances
-import { makeReservation } from "../../redux/apiCalls/reservationApiCall"; // Import de l'appel d'API pour la réservation
+import { fetchSeancesByFilmId } from "../../redux/apiCalls/seanceApiCall";
+import { makeReservation } from "../../redux/apiCalls/reservationApiCall";
 
 const PostDetail = () => {
   const { id } = useParams();
@@ -13,8 +13,7 @@ const PostDetail = () => {
 
   const post = useSelector((state) => state.post.selectedPost);
   const seances = useSelector((state) => state.seance.seances);
-  const error = useSelector((state) => state.post.error);
-  const [places, setPlaces] = useState(1); // État pour le nombre de places
+  const [places, setPlaces] = useState(1);
 
   useEffect(() => {
     dispatch(fetchPostById(id));
@@ -26,7 +25,7 @@ const PostDetail = () => {
       seance: seanceId,
       places: places,
     };
-    dispatch(makeReservation(reservationData)); // Appel à l'action de réservation
+    dispatch(makeReservation(reservationData));
   };
 
   if (!post) {
@@ -64,11 +63,11 @@ const PostDetail = () => {
                     <li>{post.list?.join(", ") || "No list items"}</li>
                   </ul>
 
-                  <p>Trailer : { post.description || "No description available"}</p>
+                  <p>
+                    Trailer : {post.description || "No description available"}
+                  </p>
                 </div>
                 <hr />
-
-                {/* Section des séances */}
                 <div className="article__content">
                   <h2>Available Seances</h2>
                   <div className="seances-list">
@@ -79,15 +78,21 @@ const PostDetail = () => {
                         <div key={seance._id} className="seance-card">
                           <p className="seance-info">
                             <strong>Salle:</strong> {seance.salle.nom}
-                          </p><hr />
+                          </p>
+                          <hr />
                           <p className="seance-info">
-                            <strong>Horaire:</strong> {new Date(seance.horaire).toLocaleString()}
-                          </p><hr />
+                            <strong>Horaire:</strong>{" "}
+                            {new Date(seance.horaire).toLocaleString()}
+                          </p>
+                          <hr />
                           <p className="seance-info">
                             <strong>Tarif:</strong> {seance.tarif} MAD
-                          </p><hr />
+                          </p>
+                          <hr />
                           <div>
-                            <h4 htmlFor={`places-${seance._id}`}>Number of Seats:</h4>
+                            <h4 htmlFor={`places-${seance._id}`}>
+                              Number of Seats:
+                            </h4>
                             <input
                               type="number"
                               id={`places-${seance._id}`}
@@ -96,7 +101,8 @@ const PostDetail = () => {
                               min="1"
                               className="header__form-input"
                             />
-                          </div><hr />
+                          </div>
+                          <hr />
                           <button
                             className="sign__btn"
                             onClick={() => handleReservation(seance._id)}
