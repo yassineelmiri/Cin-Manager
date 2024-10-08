@@ -1,28 +1,43 @@
 const express = require("express");
 const path = require('path');
-
-const ConnectToDb = require("./config/connectToDb");
 const cors = require("cors");
-require("dotenv").config();
+const dotenv = require("dotenv");
+const ConnectToDb = require("./config/connectToDb");
+
+// Importation des routes
+const salleRoutes = require("./routes/salle");
+const seanceRoutes = require("./routes/seance");
+const reservationRoutes = require("./routes/reservation");
+const usersRoutes = require("./routes/usersRoute");
+const postsRoutes = require("./routes/postsRoute");
+
+// Charger les variables d'environnement
+dotenv.config();
+
+// Connexion à la base de données
 ConnectToDb();
 
 const app = express();
+
+// Servir les images statiques
 app.use('/images', express.static(path.join(__dirname, 'images')));
-// Middlewares
+
+// Middleware pour parser le JSON
 app.use(express.json());
 
-//cors policy
+// CORS policy
 app.use(cors({
   origin: "http://localhost:3000"
-}))
-
+}));
 
 // Routes
-app.use("/api/auth", require("./routes/authRoute"));
-app.use("/api/users", require("./routes/usersRoute"));
-app.use("/api/posts", require("./routes/postsRoute"));
+app.use("/api/users", usersRoutes);
+app.use("/api/posts", postsRoutes);
+app.use("/api/salles", salleRoutes);
+app.use("/api/seances", seanceRoutes);
+app.use("/api/reservations", reservationRoutes);
 
-// Running The Server
+// Démarrage du serveur
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () =>
   console.log(

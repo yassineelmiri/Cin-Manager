@@ -39,15 +39,15 @@ const PostDetail = () => {
     <>
       <Header />
       <section className="section section--head section--head-fixed section--gradient section--details-bg">
-      <div
-  className="section__bg"
-  style={{
-    backgroundImage: `url(${post.image.url})`,
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover', 
-    backgroundPosition: 'center',
-  }}
-></div>
+        <div
+          className="section__bg"
+          style={{
+            backgroundImage: `url(${post.image.url})`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        ></div>
 
         <div className="container">
           <div className="article">
@@ -57,8 +57,12 @@ const PostDetail = () => {
                   to={post.trailerUrl ? post.trailerUrl : "#"}
                   className="article__trailer open-video"
                 >
-                  <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-                  </svg>
+                  <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 22 22"
+                    fill="none"
+                  ></svg>
                   Trailer
                 </Link>
 
