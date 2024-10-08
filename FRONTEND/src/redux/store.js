@@ -1,9 +1,9 @@
-// C:\Users\yassi\Desktop\projectJS3\cinemanager\FRONTEND\src\redux\store.js
 import { configureStore } from "@reduxjs/toolkit";
-import { authReducer } from "./slices/authSlice"; // Utilisez l'importation nommée ici
+import { authReducer } from "./slices/authSlice";
 import postReducer from "./slices/postSlice";
-import reservationReducer from "./slices/reservationSlice"; // Importer le slice de réservation
+import reservationReducer from "./slices/reservationSlice";
 import salleReducer from "./slices/salleSlice";
+import seanceReducer from "./slices/seanceSlice";
 
 const store = configureStore({
   reducer: {
@@ -11,6 +11,7 @@ const store = configureStore({
     post: postReducer,
     reservation: reservationReducer,
     salle: salleReducer,
+    seance: seanceReducer,
   },
 });
 

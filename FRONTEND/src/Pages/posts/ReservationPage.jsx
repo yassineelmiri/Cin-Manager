@@ -2,11 +2,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { fetchPostById } from "../../redux/apiCalls/postApiCall"; // Pour récupérer les informations du film
-import { createReservation } from "../../redux/apiCalls/reservationApiCall"; // Appel API pour créer une réservation
+import { fetchPostById } from "../../redux/apiCalls/postApiCall"; 
+import { makeReservation } from "../../redux/apiCalls/reservationApiCall";
 
 const ReservationPage = () => {
-  const { id } = useParams(); // Récupérer l'ID du film depuis l'URL
+  const { id } = useParams(); 
   const dispatch = useDispatch();
   const post = useSelector((state) => state.post.selectedPost);
   const [date, setDate] = useState("");
@@ -14,7 +14,6 @@ const ReservationPage = () => {
   const [seat, setSeat] = useState("");
 
   useEffect(() => {
-    // Récupérer les informations du film à partir de l'ID
     dispatch(fetchPostById(id));
   }, [dispatch, id]);
 
@@ -26,8 +25,7 @@ const ReservationPage = () => {
       seat,
     };
 
-    // Appel de l'API pour créer une réservation
-    dispatch(createReservation(reservationData));
+    dispatch(makeReservation(reservationData));
   };
 
   return (

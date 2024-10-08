@@ -8,10 +8,14 @@ exports.addSeance = async (req, res) => {
   res.status(201).json(seance);
 };
 
-// Lister les séances
+// Lister toutes les séances
 exports.getSeances = async (req, res) => {
-  const seances = await Seance.find().populate("film salle");
-  res.json(seances);
+  try {
+    const seances = await Seance.find().populate('salle'); 
+    res.json(seances);
+  } catch (error) {
+    res.status(500).json({ message: "Erreur lors de la récupération des séances", error });
+  }
 };
 
 // Modifier une séance

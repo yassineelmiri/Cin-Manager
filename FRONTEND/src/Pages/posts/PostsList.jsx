@@ -6,7 +6,6 @@ import PostItem from './PostItem';
 const PostsList = () => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.post.posts);
-  const loading = useSelector((state) => state.post.loading);
   
   // État local pour le terme de recherche
   const [searchTerm, setSearchTerm] = useState("");
@@ -15,9 +14,6 @@ const PostsList = () => {
     dispatch(fetchPost(1));
   }, [dispatch]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
 
   const filteredPosts = posts.filter(post => 
     post.title && post.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -29,8 +25,8 @@ const PostsList = () => {
         type="text"
         placeholder="Rechercher par titre..."
         value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)} // Met à jour le terme de recherche
-        className="search-bar" 
+        onChange={(e) => setSearchTerm(e.target.value)} 
+        className="header__form-input" 
         />
       <div className="row row--grid">
         {filteredPosts && filteredPosts.length > 0 ? (

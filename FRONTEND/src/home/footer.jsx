@@ -12,8 +12,8 @@ export default function footer() {
               <img src={logo} alt="Logo" />
             </div>
             <p className="footer__tagline">
-              Movies & TV Shows, Online cinema,
-              <br /> Movie.
+              Movies & javascript, Youcode 2024,
+              <br /> realiser par yassine elmiri.
             </p>
             <div className="footer__social">
               <Link to="/" target="_blank" rel="noopener noreferrer">

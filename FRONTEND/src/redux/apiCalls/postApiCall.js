@@ -1,4 +1,4 @@
-import request from "../../utils/request";
+import request from "../../utils/request"; // Assurez-vous que le chemin est correct
 import { toast } from "react-toastify";
 import { postActions } from "../slices/postSlice";
 
@@ -19,22 +19,21 @@ export function fetchPost(pageNumber) {
 
 export function fetchPostById(id) {
   return async (dispatch) => {
-    dispatch(postActions.setLoading()); // Commencez le chargement
+    dispatch(postActions.setLoading()); 
     try {
       const { data } = await request.get(`/api/posts/${id}`);
-      console.log("Data received: ", data); // Log pour vérifier les données
+      console.log("Data received: ", data); 
       dispatch(postActions.setSelectedPost(data));
     } catch (error) {
       const message = error.response?.data?.message || "Une erreur s'est produite";
       dispatch(postActions.setError(message));
       toast.error(message);
     } finally {
-      dispatch(postActions.setLoading(false)); // Arrêtez le chargement
+      dispatch(postActions.setLoading(false)); 
     }
   };
 }
 
-// Get Posts[Film] Count
 export function getPostCount() {
   return async (dispatch) => {
     try {
@@ -42,6 +41,27 @@ export function getPostCount() {
       dispatch(postActions.setPostsCount(data));
     } catch (error) {
       toast.error(error.response?.data?.message || "Erreur lors de la récupération du nombre de posts.");
+    }
+  };
+}
+
+// Create Post
+export function createPost(formData) { 
+  return async (dispatch, { rejectWithValue }) => {
+    dispatch(postActions.setLoading());
+    try {
+      const response = await request.post("/api/posts", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      dispatch(postActions.setPosts(response.data)); 
+      return response.data; 
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Erreur lors de la création du post.");
+    } finally {
+      dispatch(postActions.setLoading(false)); 
     }
   };
 }

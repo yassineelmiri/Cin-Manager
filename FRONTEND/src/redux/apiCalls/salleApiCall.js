@@ -1,4 +1,3 @@
-// src/redux/apiCalls/salleApiCall.js
 import { salleActions } from "../slices/salleSlice";
 import request from "../../utils/request"; // Assurez-vous d'avoir configuré axios ou fetch
 

@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const reservationSchema = new mongoose.Schema({
   client: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "client",
     required: true,
   },
   seance: {

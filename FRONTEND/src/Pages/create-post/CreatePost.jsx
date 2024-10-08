@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import Sidebar from "../Admin/SidebarAdmin";
 import { toast, ToastContainer } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { createPost } from "../../redux/slices/postSlice"; // Assurez-vous que le chemin est correct
+import { createPost } from "../../redux/apiCalls/postApiCall";
 
 const CreatePost = () => {
-  const dispatch = useDispatch(); // Initialisez dispatch pour appeler des actions
+  const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("FullHD");
+  const [category, setCategory] = useState("Movie"); 
   const [file, setFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
 
@@ -25,35 +25,27 @@ const CreatePost = () => {
   const formSubmitHandler = async (e) => {
     e.preventDefault();
 
-    // Vérifiez que tous les champs sont remplis
     if (!title || !description || !file) {
       toast.error("Tous les champs sont requis !");
       return;
     }
 
-    // Créer l'objet FormData
     const formData = new FormData();
     formData.append("image", file);
     formData.append("title", title);
     formData.append("category", category);
     formData.append("description", description);
 
-    // Récupérer le token d'authentification
-    const token = localStorage.getItem("token"); // Assurez-vous que le token est bien récupéré
-
-    // Configuration des en-têtes pour la requête
-    const config = {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${token}`, // Vérifiez que le token est bien formé
-      },
-    };
-
     try {
-      // Envoyer la requête POST pour créer le post
-      const response = await dispatch(createPost(formData)); // Utilisez la fonction createPost
-      toast.success("Post créé avec succès !");
-      console.log("Response:", response);
+      const response = await dispatch(createPost(formData));
+      if (response.meta.requestStatus === "fulfilled") {
+        toast.success("Post créé avec succès !");
+        setTitle("");
+        setDescription("");
+        setCategory("Movie");
+        setFile(null);
+        setImagePreview(null);
+      }
     } catch (error) {
       toast.error("Erreur lors de la création du post !");
       console.error("Erreur:", error);
@@ -87,6 +79,7 @@ const CreatePost = () => {
                         type="file"
                         accept=".png, .jpg, .jpeg"
                         onChange={handleImageChange}
+                        required // Champ requis
                       />
                       {imagePreview && (
                         <img
@@ -108,6 +101,7 @@ const CreatePost = () => {
                         name="title"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
+                        required
                       />
                     </div>
 
@@ -119,6 +113,7 @@ const CreatePost = () => {
                         placeholder="Description"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
+                        required // Champ requis
                       />
                     </div>
 

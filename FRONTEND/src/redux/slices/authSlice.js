@@ -24,4 +24,4 @@ const authSlice = createSlice({
 const authReducer = authSlice.reducer;
 const authActions = authSlice.actions;
 
-export { authReducer, authActions }; // Exportation nommée
+export { authReducer, authActions };

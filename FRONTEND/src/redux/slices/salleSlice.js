@@ -1,13 +1,12 @@
-// src/redux/slices/salleSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const salleSlice = createSlice({
   name: "salle",
   initialState: {
-    salles: [],           // Liste des salles
-    salleCount: 0,        // Nombre total de salles
-    loading: false,       // Indicateur de chargement
-    error: null,          // Gestion des erreurs
+    salles: [],           
+    salleCount: 0,        
+    loading: false,       
+    error: null,       
   },
   reducers: {
     setSalles: (state, action) => {
