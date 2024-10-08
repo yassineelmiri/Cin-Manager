@@ -5528,10 +5528,10 @@ body::-webkit-scrollbar-thumb {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #3d63fc50;
+  background-color: #2f50d4;
   width: 100%;
   padding: 10px;
   color: #ffffff;
   margin-bottom: 20px; 
-  border-radius: 4px;
+  border-radius: 10px;
 }

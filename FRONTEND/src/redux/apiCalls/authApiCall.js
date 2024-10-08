@@ -1,4 +1,4 @@
-import { authActions } from "../slices/aurhSlice";
+import { authActions } from "../slices/authSlice";
 import { toast } from "react-toastify";
 import request from "../../utils/request";
 

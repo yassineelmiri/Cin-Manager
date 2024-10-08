@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import Sidebar from "../Admin/SidebarAdmin";
-import { toast , ToastContainer } from "react-toastify"
+import { toast, ToastContainer } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { createPost } from "../../redux/slices/postSlice"; // Assurez-vous que le chemin est correct
+
 const CreatePost = () => {
+  const dispatch = useDispatch(); // Initialisez dispatch pour appeler des actions
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("FullHD");
@@ -18,39 +22,57 @@ const CreatePost = () => {
     }
   };
 
-  const formSubmitHandler = (e) => {
+  const formSubmitHandler = async (e) => {
     e.preventDefault();
+
+    // Vérifiez que tous les champs sont remplis
     if (!title || !description || !file) {
       toast.error("Tous les champs sont requis !");
       return;
     }
 
-
+    // Créer l'objet FormData
     const formData = new FormData();
-    formData.append("image",file);
-    formData.append("title",title);
-    formData.append("category",category);
-    formData.append("description",description);
+    formData.append("image", file);
+    formData.append("title", title);
+    formData.append("category", category);
+    formData.append("description", description);
 
-    
-    console.log({ title, category, description, file });
+    // Récupérer le token d'authentification
+    const token = localStorage.getItem("token"); // Assurez-vous que le token est bien récupéré
+
+    // Configuration des en-têtes pour la requête
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`, // Vérifiez que le token est bien formé
+      },
+    };
+
+    try {
+      // Envoyer la requête POST pour créer le post
+      const response = await dispatch(createPost(formData)); // Utilisez la fonction createPost
+      toast.success("Post créé avec succès !");
+      console.log("Response:", response);
+    } catch (error) {
+      toast.error("Erreur lors de la création du post !");
+      console.error("Erreur:", error);
+    }
   };
 
   return (
     <>
-    <ToastContainer theme="colored" position="top-center"/>
+      <ToastContainer theme="colored" position="top-center" />
       <Sidebar />
       <main className="main">
         <div className="container-fluid">
           <div className="row">
-            {/* Titre principal */}
             <div className="col-12">
               <div className="main__title">
                 <h2>Ajouter un nouvel item</h2>
               </div>
             </div>
 
-            {/* Formulaire */}
             <div className="col-12">
               <form onSubmit={formSubmitHandler} className="form">
                 <div className="row">
@@ -108,8 +130,10 @@ const CreatePost = () => {
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
                       >
-                        <option value="FullHD">FullHD</option>
-                        <option value="HD">HD</option>
+                        <option value="Movie">Movie</option>
+                        <option value="Comidia">Comidia</option>
+                        <option value="Action">Action</option>
+                        <option value="Drama">Drama</option>
                       </select>
                     </div>
 
@@ -120,7 +144,6 @@ const CreatePost = () => {
                 </div>
               </form>
             </div>
-            {/* Fin du formulaire */}
           </div>
         </div>
       </main>

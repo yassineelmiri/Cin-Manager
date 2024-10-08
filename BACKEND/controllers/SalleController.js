@@ -27,3 +27,11 @@ exports.deleteSalle = async (req, res) => {
     await Salle.findByIdAndDelete(id);
     res.status(204).send();
 };
+exports.getSalleCount = async (req, res) => {
+    try {
+      const count = await Salle.countDocuments(); // Compte le nombre total de salles
+      res.status(200).json(count);
+    } catch (error) {
+      res.status(500).json({ message: "Erreur lors du comptage des salles" });
+    }
+  };

@@ -8,7 +8,7 @@ const ConnectToDb = require("./config/connectToDb");
 const salleRoutes = require("./routes/salle");
 const seanceRoutes = require("./routes/seance");
 const reservationRoutes = require("./routes/reservation");
-const usersRoutes = require("./routes/usersRoute");
+const authRoute = require("./routes/authRoute");
 const postsRoutes = require("./routes/postsRoute");
 
 // Charger les variables d'environnement
@@ -31,7 +31,7 @@ app.use(cors({
 }));
 
 // Routes
-app.use("/api/users", usersRoutes);
+app.use("/api/auth", authRoute);
 app.use("/api/posts", postsRoutes);
 app.use("/api/salles", salleRoutes);
 app.use("/api/seances", seanceRoutes);
